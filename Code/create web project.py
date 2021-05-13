@@ -3,17 +3,27 @@ class Project:
     def __init__(self, name):
         self.name = name
 
+    def OS (self):
+        from sys import platform
+        if platform not in ('win32', 'cygwin'):
+            return "/"
+        else:
+            return "\\"
+
+
     def createDirectories(self):
         import os
+        separator = self.OS()
         os.mkdir(self.name)
-        os.mkdir(f"{self.name}/images")
-        os.mkdir(f"{self.name}/src")
-        os.mkdir(f"{self.name}/css")
+        os.mkdir(f"{self.name}{separator}images")
+        os.mkdir(f"{self.name}{separator}src")
+        os.mkdir(f"{self.name}{separator}css")
 
     def createFiles (self):
-        html = open(f"{self.name}/index.html", "w")
-        css = open(f"{self.name}/css/style.css", "a")
-        js = open(f"{self.name}/src/bundle.js", "a")
+        separator = self.OS()
+        html = open(f"{self.name}{separator}index.html", "w")
+        css = open(f"{self.name}{separator}css{separator}style.css", "a")
+        js = open(f"{self.name}{separator}src{separator}bundle.js", "a")
         html.write("""
 <!DOCTYPE html>
 <html lang="en">
